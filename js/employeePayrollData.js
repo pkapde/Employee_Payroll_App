@@ -1,4 +1,4 @@
-class EmployeePayroll {
+class EmployeePayrollData{
 
     constructor(...params) {
         this.name = params[0];
@@ -15,7 +15,10 @@ class EmployeePayroll {
     }
 
     set name(name) {
-        this._name = name;
+        let nameRegex = RegExp("^[A-Z]{1}[a-z]{2,}$");
+        if (nameRegex.test(name)) 
+            this._name=name;
+        else throw "Name is Incorrect";
     }
 
     get picture() {
@@ -69,6 +72,6 @@ class EmployeePayroll {
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const empDate = !this.startDate ? "undefined" : this.startDate.toLocalDateString("en-US", options);
-        return name=" + this.name + ", gender=" + this.gender + ", picture=" + this.picture + ", department=" + this.department +", salary=" + this.salary + ", empDate=" + this.startDate + ", notes=" + this.notes";
+        return _name=" + this.name + ", gender=" + this.gender + ", picture=" + this.picture + ", department=" + this.department +", salary=" + this.salary + ", empDate=" + this.startDate + ", notes=" + this.notes";
     }
 } 
