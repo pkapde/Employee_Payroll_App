@@ -14,6 +14,32 @@ window.addEventListener('DOMContentLoaded', (event) => {
           textError.textContent = e;
     }
 });
+
+//Salary Range event
+const salary = document.querySelector("#salary");
+   const output = document.querySelector(".salary-output");
+   output.textContent = salary.value;
+   salary.addEventListener("input", function () {
+   output.textContent = salary.value;
+  });
+
+//validate start date
+window.addEventListener('DOMContentLoaded', (event) => {
+  const startDate = document.querySelector('#startDate');
+  const dateError = document.querySelector('.date-error');
+  startDate.addEventListener('input', function() {
+     if (startDate.value.length == 0) {
+        dateError.textContent = "";
+        return;
+     }
+     try {
+         (new EmployeePayrollData).startDate = startDate.value;;
+         dateError.textContent = "";
+     } catch (e) {
+     dateError.textContent = e;
+    }
+  });
+});
 });
 
 

@@ -1,6 +1,7 @@
 class EmployeePayrollData{
 
     constructor(...params) {
+        
         this.name = params[0];
         this.picture = params[1];
         this.gender = params[2];
@@ -57,7 +58,10 @@ class EmployeePayrollData{
     }
 
     set startDate(startDate) {
-        this._startDate = startDate;
+        let date = new Date();
+        if (startDate < date) {
+            this._startDate = startDate;
+        } else throw "Invalid Date";
     }
 
     get notes() {
