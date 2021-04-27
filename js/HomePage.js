@@ -2,44 +2,66 @@
 window.addEventListener("DOMContentLoaded", (event) => {
     createInnerHtml();
   });
+
   function createInnerHtml() {
     const headerHtml = `<tr><th></th><th>Name</th><th>Gender</th><th>Department</th>
     <th>Salary</th><th>start Date</th><th>Actions</th></tr>`;
-    const innerHtml = `${headerHtml}
+    let innerHtml = `${headerHtml}`;
+    let empPayrollList = createEmployeePayrollJSON();
+    for (const empPayrollData of empPayrollList) {
+      innerHtml = `${innerHtml}
     <tr>
-    <td><img src="../Assets/ProfileImage/img1.png" class="profile" width="30px" alt=""></td>
-    <td>Akshay Patil</td>
-    <td>Male</td>
+    <td><img src="${
+      empPayrollData._profilePic
+    }" class="profile" width="30px" alt=""></td>
+    <td>${empPayrollData._name}</td>
+    <td>${empPayrollData._gender}</td>
+    <td>${getDeptHtml(empPayrollData._department)}</td>
+    <td>${empPayrollData._salary}</td>
+    <td>${empPayrollData._startDate}</td>
     <td>
-    <div class="dept-label">Engineer</div>
-    <div class="dept-label">HR</div>
-    <div class="dept-label">Finance</div>
-    </td>
-    <td>400000</td>
-    <td>15 March 2020</td>
-    <td>
-    <img id="1" onclick="remove(this)" alt="delete" width="30px"
-    src="../assets/icons/delete-black-18dp.svg">
-    <img id="1" onclick="update(this)" alt="edit" width="30px"
-    src="../assets/icons/create-black-18dp.svg">
-    </td>
-    </tr>
-    <tr>
-    <td><img src="../assets/profile-images/img3.png" class="profile" width="30px" alt=""></td>
-    <td>Sagar Shinde</td>
-    <td>Male</td>
-    <td>
-    <div class="dept-label">Sales</div>
-    <div class="dept-label">HR</div>
-    </td>
-    <td>350000</td>
-    <td>15 May 2020</td>
-    <td>
-    <img id="1" onclick="remove(this)" alt="delete" width="30px"
-    src="../assets/icons/delete-black-18dp.svg">
-    <img id="1" onclick="update(this)" alt="edit" width="30px"
-    src="../assets/icons/create-black-18dp.svg">
+    <img id="1" name="${
+      empPayrollData._id
+    }" onclick="remove(this)" alt="delete" width="30px" src="../Assets/icons/delete-black-18dp.svg">
+    <img id="1" name="${
+      empPayrollData._id
+    }" onclick="update(this)" alt="edit" width="30px" src="../Assets/icons/create-black-18dp.svg ">
     </td>
     </tr>`;
+    }
     document.querySelector("#display").innerHTML = innerHtml;
   }
+
+  function getDeptHtml(deptList) {
+    let deptHtml = "";
+    for (const dept of deptList) {
+      deptHtml = `${deptHtml} <div class='dept-label'>${dept}</div>`;
+    }
+    return deptHtml;
+  }  
+
+  const createEmployeePayrollJSON = () => {
+    let empPayrollListLocal = [
+      {
+        _name: "Akshay Patil",
+        _gender: "Male",
+        _department: ["Finance", "Hr"],
+        _salary: "300000",
+        _startDate: "18 June 2018",
+        _note: "",
+        _id: new Date().getTime(),
+        _profilePic: "../assets/profile-images/img1.png",
+      },
+      {
+        _profilePic: "../assets/profile-images/img3.png",
+        _name: "Sajan Shah",
+        _gender: "Male",
+        _department: ["Engineering", "Sales"],
+        _salary: "200000",
+        _startDate: "16 May 2019",
+        _note: "",
+        _id: new Date().getTime(),
+      },
+    ];
+    return empPayrollListLocal;
+  };
