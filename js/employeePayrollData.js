@@ -1,14 +1,11 @@
 class EmployeePayrollData{
 
-    constructor(...params) {
-        
-        this.name = params[0];
-        this.picture = params[1];
-        this.gender = params[2];
-        this.department = params[3];
-        this.salary = params[4];
-        this.startDate = params[5];
-        this.notes = params[6];
+    get id() { 
+        return this._id; 
+    }
+
+    set id(id) { 
+        this._id = id;
     }
 
     get name() {
@@ -16,6 +13,7 @@ class EmployeePayrollData{
     }
 
     set name(name) {
+        console.log(name);
         let nameRegex = RegExp("^[A-Z]{1}[a-z]{2,}$");
         if (nameRegex.test(name)) 
             this._name=name;
@@ -76,6 +74,6 @@ class EmployeePayrollData{
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const empDate = !this.startDate ? "undefined" : this.startDate.toLocalDateString("en-US", options);
-        return _name=" + this.name + ", gender=" + this.gender + ", picture=" + this.picture + ", department=" + this.department +", salary=" + this.salary + ", empDate=" + this.startDate + ", notes=" + this.notes";
+        return id="+this.id +", _name=" + this.name + ", gender=" + this.gender + ", picture=" + this.picture + ", department=" + this.department +", salary=" + this.salary + ", empDate=" + this.startDate + ", notes=" + this.notes";
     }
 } 
