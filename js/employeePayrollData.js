@@ -5,7 +5,10 @@ class EmployeePayrollData{
     }
 
     set id(id) { 
-        this._id = id;
+        let idRegex = RegExp('[1-9]+[0-9]?');
+        if (idRegex.test(id))
+            this._id = id;
+        else throw 'ID is incorrect'
     }
 
     get name() {
@@ -74,6 +77,6 @@ class EmployeePayrollData{
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const empDate = !this.startDate ? "undefined" : this.startDate.toLocalDateString("en-US", options);
-        return id="+this.id +", _name=" + this.name + ", gender=" + this.gender + ", picture=" + this.picture + ", department=" + this.department +", salary=" + this.salary + ", empDate=" + this.startDate + ", notes=" + this.notes";
+        return "id=" + this.id + ", _name=" + this.name + ", gender=" + this.gender + ", picture=" + this.picture + ", department=" + this.department +", salary=" + this.salary + ", empDate=" + this.startDate + ", notes=" + this.notes;
     }
 } 

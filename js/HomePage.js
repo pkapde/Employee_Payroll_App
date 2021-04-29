@@ -1,12 +1,23 @@
-//UC4 
-window.addEventListener("DOMContentLoaded", (event) => {
-    createInnerHtml();
-  });
 
-  function createInnerHtml() {
-    const headerHtml = `<tr><th></th><th>Name</th><th>Gender</th><th>Department</th>
-    <th>Salary</th><th>start Date</th><th>Actions</th></tr>`;
-    let innerHtml = `${headerHtml}`;
+  //UC 6
+  let empPayrollList;
+  window.addEventListener("DOMContentLoaded", (event) => {
+    empPayrollList = getEmployeePayrollDataFromStorage();
+    document.querySelector(".emp-count").textContent = empPayrollList.length;
+    createInnerHtml();
+    localStorage.removeItem("editEmp");
+  });
+  const getEmployeePayrollDataFromStorage = () => {
+    return localStorage.getItem("EmployeePayrollList")
+      ? JSON.parse(localStorage.getItem("EmployeePayrollList"))
+      : [];
+  };
+  
+//UC5
+function createInnerHtml() {
+  const headerHtml = `<tr><th></th><th>Name</th><th>Gender</th><th>Department</th>
+  <th>Salary</th><th>start Date</th><th>Actions</th></tr>`;
+  let innerHtml = `${headerHtml}`;
     let empPayrollList = createEmployeePayrollJSON();
     for (const empPayrollData of empPayrollList) {
       innerHtml = `${innerHtml}
@@ -40,28 +51,40 @@ window.addEventListener("DOMContentLoaded", (event) => {
     return deptHtml;
   }  
 
-  const createEmployeePayrollJSON = () => {
-    let empPayrollListLocal = [
-      {
-        _name: "Akshay Patil",
-        _gender: "Male",
-        _department: ["Finance", "Hr"],
-        _salary: "300000",
-        _startDate: "18 June 2018",
-        _note: "",
-        _id: new Date().getTime(),
-        _profilePic: "../assets/profile-images/img1.png",
-      },
-      {
-        _profilePic: "../assets/profile-images/img3.png",
-        _name: "Sajan Shah",
-        _gender: "Male",
-        _department: ["Engineering", "Sales"],
-        _salary: "200000",
-        _startDate: "16 May 2019",
-        _note: "",
-        _id: new Date().getTime(),
-      },
-    ];
-    return empPayrollListLocal;
-  };
+   const createEmployeePayrollJSON = () => {
+     let empPayrollListLocal = [
+       {
+         _name: "Akshay Patil",
+         _gender: "Male",
+         _department: ["Finance", "Hr"],
+         _salary: "300000",
+         _startDate: "18 June 2018",
+         _note: "",
+         _id: new Date().getTime(),
+         _profilePic: "../assets/profile-images/img1.png",
+       },
+       {
+         _profilePic: "../assets/profile-images/img3.png",
+         _name: "Sajan Shah",
+         _gender: "Male",
+         _department: ["Engineering", "Sales"],
+         _salary: "200000",
+         _startDate: "16 May 2019",
+         _note: "",
+         _id: new Date().getTime(),
+       },
+     ];
+     return empPayrollListLocal;
+   };
+
+  const remove = (node) => {
+  let empPayrollData = empPayrollList.find((empData) => empData._id == node.id);
+  if (!empPayrollData) return;
+  const index = empPayrollList
+  .map((empData) => empData._id)
+  .indexOf(empPayrollData._id);
+  empPayrollList.splice(index, 1);
+  localStorage.setItem("EmployeePayrollList", JSON.stringify(empPayrollList));
+  document.querySelector(".emp-count").textContent = empPayrollList.length;
+  createInnerHtml();
+}

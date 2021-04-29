@@ -36,6 +36,7 @@ const save = () => {
 }
 
 function createAndUpdateStorage(employeePayrollData) {
+  console.log("Final emp data",employeePayrollData);
   let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
   if(employeePayrollList != undefined){
       employeePayrollList.push(employeePayrollData);
@@ -43,7 +44,7 @@ function createAndUpdateStorage(employeePayrollData) {
       employeePayrollList = [employeePayrollData]
   }
   alert(employeePayrollList.toString());
-  localStorage.setItem("EmployeePayrollList", JSON.stringyfy(employeePayrollList))
+  localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList))
 }
 
 const createEmployeePayroll = () => {
@@ -74,8 +75,9 @@ const getSelectedValues = (propertyValue) => {
   return selItems;
 }
 
-const getInputValueById = (id) => {
+const getInputValueById = (id) => { 
   let value = document.querySelector(id).value;
+  console.log(value);
   return value;
 }
 
